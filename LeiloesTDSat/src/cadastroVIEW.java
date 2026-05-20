@@ -1,12 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Adm
- */
 public class cadastroVIEW extends javax.swing.JFrame {
 
     /**
@@ -140,17 +133,36 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
+    // 1. Verifica se os campos não estão vazios antes de continuar
+    if (cadastroNome.getText().trim().isEmpty() || cadastroValor.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos antes de salvar.");
+        return;
+    }
+
+    try {
+        // 2. Cria o objeto e popula com os dados da tela
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
+        
+        ProdutosDTO produto = new ProdutosDTO();
         produto.setNome(nome);
         produto.setValor(Integer.parseInt(valor));
         produto.setStatus(status);
         
+        // 3. Envia para o banco de dados
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
         
+        // 4. Limpa os campos da tela para o próximo cadastro
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+        cadastroNome.requestFocus(); // Coloca o cursor de digitação de volta no nome
+        
+    } catch (NumberFormatException e) {
+        // Trata o erro caso o usuário digite letras no campo de valor
+        JOptionPane.showMessageDialog(null, "Por favor, insira apenas números inteiros no campo Valor.");
+    }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
