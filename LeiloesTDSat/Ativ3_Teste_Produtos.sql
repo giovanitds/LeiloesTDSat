@@ -1,0 +1,1 @@
+SELECT id, nome, valor, status FROM produtos;

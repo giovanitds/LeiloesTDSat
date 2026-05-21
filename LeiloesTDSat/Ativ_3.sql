@@ -70,4 +70,14 @@ COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;produtosidnomevalorprodutos
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
+
+SELECT id, nome, valor, status FROM produtos WHERE status = 'Vendido';
+
+SELECT nome, status FROM produtos;
+
+SELECT nome, status FROM produtos ORDER BY nome ASC;
+
+SELECT nome, status FROM produtos WHERE status = 'A Venda';
+
+SELECT nome, status FROM produtos WHERE status = 'Vendido';
