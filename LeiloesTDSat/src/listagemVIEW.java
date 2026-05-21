@@ -126,12 +126,24 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
-        
-        ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        // 1. Pega a linha que o usuário selecionou na tabela (listaProdutos)
+    int linhaSelecionada = listaProdutos.getSelectedRow();
+    
+    // 2. Verifica se o usuário realmente selecionou uma linha
+    if (linhaSelecionada == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecione um produto na tabela primeiro!");
+        return;
+    }
+    
+    // 3. Pega o ID do produto (primeira coluna, índice 0 da linha selecionada)
+    int idProduto = Integer.parseInt(listaProdutos.getValueAt(linhaSelecionada, 0).toString());
+    
+    // 4. Instancia o DAO para executar a venda no banco de dados
+    ProdutosDAO produtosdao = new ProdutosDAO();
+    produtosdao.venderProduto(idProduto);
+    
+    // 5. Atualiza a tabela na tela para mostrar o novo status "Vendido" imediatamente
+    listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
